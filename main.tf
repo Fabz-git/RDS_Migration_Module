@@ -1,22 +1,21 @@
 
-module "networking" {
-  source             = "./vpc.tf"
+module "vpc" {
+  source             = "./modules/vpc"
   vpc_cidr          = var.vpc_cidr
   subnet_cidrs      = var.subnet_cidrs
   availability_zones = var.availability_zones
+  db_subnet_group_name = var.db_subnet_group_name
 }
 
 module "security" {
-  source               = "./security_groups.tf"
-  vpc_id               = module.networking.vpc_id
-  db_security_group_ids = var.db_security_group_ids
+  source = "./modules/security"
+  vpc_id = module.vpc.vpc_id
 }
 
 module "rds" {
-  source                 = "./rds.tf"
-  db_identifier          = var.db_identifier
-  db_instance_class      = var.db_instance_class
-  db_snapshot_identifier = var.db_snapshot_identifier
-  db_subnet_group_name   = var.db_subnet_group_name
-  vpc_security_group_ids = module.security.db_security_group_ids
+  source                 = "./modules/rds"
+  db_instances           = var.db_instances
+  db_subnet_group_name   = module.vpc.db_subnet_group_name
+  vpc_security_group_ids = [module.security.db_security_group_id]
 }
+

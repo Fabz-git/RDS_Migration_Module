@@ -1,15 +1,15 @@
-
 output "rds_endpoints" {
   description = "The endpoints of the restored RDS instances"
-  value       = aws_db_instance.rds[*].endpoint
+  value       = module.rds.rds_endpoints
 }
 
 output "rds_vpc_id" {
   description = "The VPC ID where the RDS is deployed"
-  value       = aws_vpc.main.id
+  value       = module.vpc.vpc_id
 }
 
 output "rds_security_group" {
   description = "The Security Group ID attached to RDS"
-  value       = aws_security_group.rds_sg.id
+  value       = module.security.db_security_group_id
 }
+
