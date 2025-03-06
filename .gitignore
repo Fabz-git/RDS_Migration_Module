@@ -1,6 +1,8 @@
 # Ignore Terraform state files
 terraform.tfstate
 terraform.tfstate.backup
+terraform.tfstate.1741281295.backup
+
 
 # Ignore Terraform provider cache
 .terraform/
