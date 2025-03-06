@@ -10,6 +10,6 @@ output "rds_vpc_id" {
 
 output "rds_security_group" {
   description = "The Security Group ID attached to RDS"
-  value       = module.security.db_security_group_id
+  value       = module.security.rds_security_group_id
 }
 

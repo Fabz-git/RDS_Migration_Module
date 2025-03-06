@@ -1,2 +1,4 @@
-output "rds_endpoints" { value = aws_db_instance.this[*].endpoint }
+output "rds_endpoints" {
+  value = { for k, v in aws_db_instance.rds : k => v.endpoint }  
+}
 

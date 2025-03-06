@@ -16,7 +16,9 @@ module "rds" {
   source                 = "./modules/rds"
   db_instances           = var.db_instances
   db_subnet_group_name   = module.vpc.db_subnet_group_name
-  vpc_security_group_ids = [module.security.db_security_group_id]
+  vpc_security_group_ids = [module.security.rds_security_group_id]
+  db_security_group_ids = [module.security.rds_security_group_id]
+  subnet_ids             = module.vpc.subnet_ids
 }
 
 
@@ -25,6 +27,6 @@ module "backend" {
   s3_bucket_name      = "terraform-state-bucket"
   dynamodb_table_name = "terraform-lock-table"
   iam_role_name       = "TerraformBackendRole"
-}
+ }
 
 
